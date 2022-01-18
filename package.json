@@ -1,0 +1,26 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Api",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobiasalbirosa/csv.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "Tobías Albirosa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tobiasalbirosa/csv/issues"
+  },
+  "homepage": "https://github.com/tobiasalbirosa/csv#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongodb": "^4.3.0"
+  }
+}
