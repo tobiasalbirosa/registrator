@@ -22,7 +22,7 @@ const register = (email, password, confirmpassword, req, res, next) => {
                         if (result == null) {
                         //USER DOESN'T EXISTS, LETS GO TO ADD USER ->
                             console.log("Trying to insert user")                     
-                            collection.insertOne({ email: email, password: password })
+                            collection.insertOne({ email: email, password: password, verified: false })
                                 .then(result => {
                                 //RESPONSE, USER ADDED:
                                     console.log("inserted", result)

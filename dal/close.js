@@ -1,7 +1,5 @@
 'use strict'
 
-'use strict'
-
 const { MongoClient } = require('mongodb')
 
 const url = 'mongodb://localhost:27017'
@@ -13,6 +11,5 @@ const close = () => {
     console.log("client closed")
 
 }
-
 
 module.exports = close
