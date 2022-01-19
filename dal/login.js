@@ -8,7 +8,7 @@ const login = (email, password, req, res, next) => {
     if (email != undefined && password != undefined) {
 
         const connect = require('./connect')
-        const close = require('./close')
+        const close = require('./close').default
 
         //DB CONECTION:
         connect

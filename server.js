@@ -1,13 +1,16 @@
 
-'use strict'
-const express = require('express')
+`use strict`
+require(`dotenv`).config()
+
+const express = require(`express`)
 const server = express()
-const controller = require('./controller/controller')
-const PORT = process.env.PORT || 5000
-const HOST = process.env.HOST ||  "192.168.1.193"
+const PORT = process.env.PORT
+const HOST = process.env.HOST
+
+const controller = require(`./controller/controller`)
 
 server.use(controller)
 
 server.listen(PORT, HOST, () => { 
-    console.log('Server listen on: ' + HOST  + ':' + PORT) 
+    console.log(`Server running at http://${HOST}:${PORT}/`)
 })

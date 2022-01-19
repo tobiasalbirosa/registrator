@@ -10,7 +10,7 @@ const register = (email, password, confirmpassword, req, res, next) => {
         const connect = require('./connect')
         const close = require('./close')
         
-        //DB CONECTION PRO;:
+        //DB CONECTION:
         connect
             .then(client => {
                 //SUCCESS:
@@ -25,6 +25,7 @@ const register = (email, password, confirmpassword, req, res, next) => {
                             collection.insertOne({ email: email, password: password, verified: false })
                                 .then(result => {
                                 //RESPONSE, USER ADDED:
+                                //SEND EMAIL TO USER
                                     console.log("inserted", result)
                                     res.send("User added to database")
                                 })
