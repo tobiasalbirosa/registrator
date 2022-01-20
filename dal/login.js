@@ -34,7 +34,20 @@ const login = (email, password, req, res, next) => {
 
                                 //LOGIN SUCCESS
 
-                                res.status(200).send(result)
+                                if(result.verified == true){
+
+                                    res.status(200).send({   
+                                    
+                                        "email" : result.email,
+                                        "verified" : result.verified
+                                    
+                                    })
+
+                                } else {
+
+                                    res.status(200).send({verified : false})
+
+                                }
                         
                             }
                 

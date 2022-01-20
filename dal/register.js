@@ -26,22 +26,19 @@ const register = async (email, password, confirmpassword, req, res, next) => {
 
                             if (result == null) {
 
-                                //USER DOESN'T EXISTS, LETS GO TO ADD USER ->
-                                sendemail(email)
-                                res.status(201).send("check mail")
-                                return
+                                //USER DOESN'T EXISTS, LETS GO TO ADD USER INTO CORRESPONDING COLLECTION ->                             
+                                let code = Math.floor(Math.random() * (999999 - 100000)) + 100000
 
                                 collection
 
-                                    .insertOne({ email: email, password: password, verified: false })
+                                    .insertOne({ email: email, password: password, verified: false, code : code})
                                 
                                         .then(result => {
 
                                             //RESPONSE, USER ADDED:
                                             //SEND EMAIL TO USER...
-                                            
-                                            sendemail(email, password, result.insertedId.toString())
-                                            res.status(201).send(result)
+                                            sendemail(email, code)
+                                            res.status(201).send(`Check e-mail `+email+` to complete your registration`)
 
                                         })
                                         
