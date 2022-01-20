@@ -2,7 +2,7 @@
 
 const verificator = require(`../dal/verificator`)
 
-const checkVerify = (email, password, code,req, res, next) => {
+const checkVerify = (email, password, code, req, res, next) => {
 
     console.log(`code: ` + code)
 

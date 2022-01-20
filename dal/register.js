@@ -1,6 +1,6 @@
 `use strict`
-
-const register = (email, password, confirmpassword, req, res, next) => {
+const sendemail = require(`../nodemailer/sendemail`)
+const register = async (email, password, confirmpassword, req, res, next) => {
     
     //REGISTRATION CONDITIONS, CHECK IF EMAIL AND PASSWORD ARE NOT EMPTY
     //SECURITY LEVEL: BASIC_LOW_DANGEROUS
@@ -36,15 +36,16 @@ const register = (email, password, confirmpassword, req, res, next) => {
 
                                             //RESPONSE, USER ADDED:
                                             //SEND EMAIL TO USER...
-
+                                            sendemail(email, password, result.insertedId.toString())
                                             res.status(201).send(result)
 
                                         })
+                                        
                                         .catch(err => {
 
                                             //ERROR RESPONSE, user not added:
 
-                                            res.status(500).send(`DB Error adding user to database`, err)
+                                            res.status(500).send(`DB Error adding user to database `+ err)
 
                                         })
 
@@ -73,11 +74,12 @@ const register = (email, password, confirmpassword, req, res, next) => {
 
             .catch(err => {
 
-                res.status(404).send(err)
+                res.status(404).send(`NODE JS ERROR `+err)
 
             })
 
     }
 
 }
+
 module.exports = register
