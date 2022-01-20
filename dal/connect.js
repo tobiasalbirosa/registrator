@@ -13,6 +13,7 @@ const connect = new Promise ((res, err) => {
       .then(() => {
 
         const db = client.db(process.env.USERS_DB)
+        
         const collection = db.collection(process.env.USERS_DB_COLLECTION)
 
         res(collection)

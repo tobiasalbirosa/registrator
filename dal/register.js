@@ -16,8 +16,8 @@ const register = async (email, password, confirmpassword, req, res, next) => {
         
             .then(collection => {
 
-                //SUCCESS:
-
+                //SUCCESS!:
+                
                 collection
 
                     .findOne({ email: email })
@@ -26,8 +26,11 @@ const register = async (email, password, confirmpassword, req, res, next) => {
 
                             if (result == null) {
 
-                            //USER DOESN'T EXISTS, LETS GO TO ADD USER ->
-                 
+                                //USER DOESN'T EXISTS, LETS GO TO ADD USER ->
+                                sendemail(email)
+                                res.status(201).send("check mail")
+                                return
+
                                 collection
 
                                     .insertOne({ email: email, password: password, verified: false })
@@ -36,6 +39,7 @@ const register = async (email, password, confirmpassword, req, res, next) => {
 
                                             //RESPONSE, USER ADDED:
                                             //SEND EMAIL TO USER...
+                                            
                                             sendemail(email, password, result.insertedId.toString())
                                             res.status(201).send(result)
 
