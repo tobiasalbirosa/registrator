@@ -1,4 +1,3 @@
-
 `use strict`
 
 require(`dotenv`).config()
@@ -13,7 +12,7 @@ const controller = require(`./controller/controller`)
 server.use(controller)
 
 server.listen(PORT, HOST, () => {
-
-    console.log(`Server running at http://`+HOST+`:`+PORT+`/`)
     
+    console.log( `Server running at http://`+HOST+`:`+PORT+`/` )
+
 })

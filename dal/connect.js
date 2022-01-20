@@ -19,9 +19,9 @@ const connect = new Promise ((res, err) => {
   
       })
       
-      .catch(err => {
+      .catch(er => {
   
-        err(err)
+        err(er)
   
       })
 

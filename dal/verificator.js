@@ -11,7 +11,9 @@ const verificator = (email, password, req, res, next) => {
         const close = require(`./close`)
 
         //DB CONNECT:
+
         connect
+
             .then(collection => {
 
                 //SUCCESS:
@@ -21,31 +23,42 @@ const verificator = (email, password, req, res, next) => {
                     .findOne({ email: email , password: password })
 
                         .then(result => {
+                            
                             //ON DB RESULT:
+                            
                             if (result == null) {
+                            
                                 //USER DOESN'T EXISTS, CANT LOGIN
-                                console.log(`User doesn't exists or password is wrong`)
                                 res.status(404).send(`User doesn't exists or password is wrong`)
+                            
                             } else {
+                            
                                 //LOGIN SUCCESS
-                                console.log(`LOGIN SUCCESS`)
                                 res.status(200).send(result)
+                            
                             }
 
                         })
+
                         .catch(err => {
-                            //ON DB ERROR:
-                            console.log(`Error: ` + err)
+                            
                             res.status(404).send(err)
 
                         })
-                        //DB CLOSE:
-                        close()
+
+                //DB CLOSE:
+                close()
+            
             })
+            
             .catch(err => {
-                console.log(err)
+
                 res.status(404).send(err)
+            
             })
+    
     }
+
 }
+
 module.exports = verificator

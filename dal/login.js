@@ -18,32 +18,35 @@ const login = (email, password, req, res, next) => {
 
                 //SUCCESS, DB CONNECTED AND OUR CLIENT DATA:
                 
+                collection
 
+                    .findOne({ email: email , password: password })
 
-                collection.findOne({ email: email , password: password })
-
-                    .then(result => {
+                        .then(result => {
                 
-                        if (result == null) {
+                            if (result == null) {
 
-                            //USER DOESN'T EXISTS, CANT LOGIN
-                            res.status(404).send(`User doesn't exists or password is wrong`)
+                                //USER DOESN'T EXISTS, CANT LOGIN
+
+                                res.status(404).send(`User doesn't exists or password is wrong`)
                             
-                        } else {
+                            } else {
 
-                            //LOGIN SUCCESS
-                            res.status(200).send(result)
+                                //LOGIN SUCCESS
+
+                                res.status(200).send(result)
                         
-                        }
+                            }
                 
-                    })
+                        })
 
-                    .catch(err => {
+                        .catch(err => {
 
-                        //ERROR RESPONSE, DB ERROR:
-                        res.status(404).send(err)
+                            //ERROR RESPONSE, DB->COLLECTION ERROR:
+                            
+                            res.status(404).send(err)
 
-                    })
+                        })
 
                 //DB CLOSE:
 
@@ -53,10 +56,11 @@ const login = (email, password, req, res, next) => {
 
             .catch(err => {
 
+                //ERROR RESPONSE, DB->COLLECTION ERROR:
                 res.status(404).send(err)
 
             })
-    
+
     }
 
 }
