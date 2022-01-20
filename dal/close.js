@@ -1,14 +1,12 @@
-'use strict'
+`use strict`
 
-const { MongoClient } = require('mongodb')
-
-const url = 'mongodb://localhost:27017'
+const { MongoClient } = require(`mongodb`)
+const url = process.env.DB_URL
 const client = new MongoClient(url)
 
 const close = () => {
   
     client.close()
-    console.log("client closed")
 
 }
 

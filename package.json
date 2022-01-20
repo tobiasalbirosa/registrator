@@ -1,24 +1,24 @@
 {
-  "name": "api",
+  "name": "apiregistrator",
   "version": "1.0.0",
-  "description": "Api",
+  "description": "API to register and verify users",
   "main": "server.js",
   "scripts": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tobiasalbirosa/csv.git"
+    "url": "git+https://github.com/tobiasalbirosa/registrator.git"
   },
   "keywords": [
     "api"
   ],
   "author": "Tobías Albirosa",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tobiasalbirosa/csv/issues"
+    "url": "https://github.com/tobiasalbirosa/registrator/issues"
   },
-  "homepage": "https://github.com/tobiasalbirosa/csv#readme",
+  "homepage": "https://github.com/tobiasalbirosa/registrator#readme",
   "dependencies": {
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
