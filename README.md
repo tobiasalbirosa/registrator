@@ -49,4 +49,12 @@
         password : "PASSWORD"
         
     
-  
+   - POST /logout
+   - 
+        email  : "EMAIL@EXAMPLE.COM",
+        
+        password : "PASSWORD",
+        
+        token  : "JWT"
+        
+        
