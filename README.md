@@ -6,7 +6,7 @@
  
 
 
-    ###Supossing you have installed Node JS and MongoDB your OS:
+    Supossing you have installed Node JS and MongoDB your OS:
 
 
  - git clone https://github.com/tobiasalbirosa/registrator/
