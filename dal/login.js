@@ -9,7 +9,7 @@ const login = (email, password, req, res, next) => {
 
         const connect = require(`./connect`)
         const close = require(`./close`)
-
+        const auth = require(`../middlewares/jwt/auth`)
         //DB CONECTION:
 
         connect
@@ -36,16 +36,11 @@ const login = (email, password, req, res, next) => {
 
                                 if(result.verified == true){
 
-                                    res.status(200).send({   
-                                    
-                                        "email" : result.email,
-                                        "verified" : result.verified
-                                    
-                                    })
+                                    auth(req, res, next)
 
                                 } else {
 
-                                    res.status(200).send({verified : false})
+                                    res.status(503).send({verified : false})
 
                                 }
                         

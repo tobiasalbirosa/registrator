@@ -9,7 +9,7 @@ let sendemail = (userEmail, userCode) => {
     tls: { rejectUnauthorized: false },
     host: process.env.EMAIL_HOST,
     port: 465,
-    secure: true, // use SSL
+    secure: true,
     
     auth: {
 
@@ -35,6 +35,7 @@ let sendemail = (userEmail, userCode) => {
       '<h3>This is an automatic message, please do not reply</h3>'+
       '<p>This message was sent to: '+userEmail+'</p>'+
       '<p>This message was sent at: '+new Date()+'</p>'
+      
   }
 
   transporter.verify(function(error, success) {
