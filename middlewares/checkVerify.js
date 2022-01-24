@@ -2,7 +2,7 @@
 
 const verificator = require(`../dal/verificator`)
 
-const checkVerify = (email, password, code, req, res, next) => {
+module.exports = (email, password, code, req, res, next) => {
 
 
     if (email != undefined && password != undefined 
@@ -13,5 +13,3 @@ const checkVerify = (email, password, code, req, res, next) => {
     }
     
 }
-
-module.exports = checkVerify

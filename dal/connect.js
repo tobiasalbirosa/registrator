@@ -4,7 +4,7 @@ const { MongoClient } = require(`mongodb`)
 const url = process.env.DB_URL
 const client = new MongoClient(url)
 
-const connect = new Promise ((res, err) => {
+module.exports = t = new Promise ((res, err) => {
 
   client
     
@@ -27,5 +27,3 @@ const connect = new Promise ((res, err) => {
       })
 
 })
-
-module.exports = connect

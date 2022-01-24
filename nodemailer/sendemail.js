@@ -2,7 +2,7 @@
 
 const nodemailer = require(`nodemailer`)
 
-let sendemail = (userEmail, userCode) => {
+module.exports = (userEmail, userCode) => {
 
   let transporter = nodemailer.createTransport({
     
@@ -66,5 +66,3 @@ let sendemail = (userEmail, userCode) => {
   })
 
 }
-
-module.exports = sendemail

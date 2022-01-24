@@ -4,10 +4,8 @@ const { MongoClient } = require(`mongodb`)
 const url = process.env.DB_URL
 const client = new MongoClient(url)
 
-const close = () => {
+module.exports =  () => {
   
     client.close()
 
 }
-
-module.exports = close

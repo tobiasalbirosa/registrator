@@ -1,6 +1,14 @@
 `use strict`
+
 const sendemail = require(`../nodemailer/sendemail`)
-const register = async (email, password, confirmpassword, req, res, next) => {
+
+var crypto = require('crypto')
+
+
+const algorithm = process.env.HASH_ALGORITHM
+const secret = process.env.HASH_SECRET
+
+module.exports = async (email, password, confirmpassword, req, res, next) => {
     
     //REGISTRATION CONDITIONS, CHECK IF EMAIL AND PASSWORD ARE NOT EMPTY
     //SECURITY LEVEL: BASIC_LOW_DANGEROUS
@@ -11,16 +19,22 @@ const register = async (email, password, confirmpassword, req, res, next) => {
         const close = require(`./close`)
         
         //DB CONECTION:
+        console.log(email)
 
         connect
         
             .then(collection => {
+                console.log(email)
 
                 //SUCCESS!:
-                
+                const hashedEmail = crypto.createHash(algorithm, secret)
+                .update(email)
+                .digest('hex')
+
+                console.log(hashedEmail)
                 collection
 
-                    .findOne({ email: email })
+                    .findOne({ email: hashedEmail })
 
                         .then(result => {
 
@@ -29,16 +43,30 @@ const register = async (email, password, confirmpassword, req, res, next) => {
                                 //USER DOESN'T EXISTS, LETS GO TO ADD USER INTO CORRESPONDING COLLECTION ->                             
                                 let code = Math.floor(Math.random() * (999999 - 100000)) + 100000
 
+                                const hashedPass = crypto.createHash(algorithm, secret)
+                                .update(password)
+                                .digest('hex')
+                                
+                                const hashedBoolean = crypto.createHash(algorithm, secret)
+                                .update(true)
+                                .digest('hex')   
+
+                                const hashedCode = crypto.createHash(algorithm, secret)
+                                .update(code.toString())
+                                .digest('hex')   
+
                                 collection
 
-                                    .insertOne({ email: email, password: password, verified: false, code : code})
+                                    .insertOne({ "email": hashedEmail, "password": hashedPass, "verified": hashedBoolean, "code" : hashedCode})
                                 
                                         .then(result => {
 
                                             //RESPONSE, USER ADDED:
                                             //SEND EMAIL TO USER...
+
                                             sendemail(email, code)
-                                            res.status(201).send(`Check e-mail `+email+` to complete your registration`)
+                                            
+                                            res.status(201).send(`Check registered e-mail to complete your registration`)
 
                                         })
                                         
@@ -82,5 +110,3 @@ const register = async (email, password, confirmpassword, req, res, next) => {
     }
 
 }
-
-module.exports = register

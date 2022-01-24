@@ -24,6 +24,7 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.3.0",
-    "nodemailer": "^6.7.2"
+    "nodemailer": "^6.7.2",
+    "password-hash-and-salt": "^0.1.4"
   }
 }

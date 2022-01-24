@@ -2,7 +2,7 @@
 
 const register = require(`../dal/register`)
 
-const checkRegister = (email, password, confirmpassword, req, res, next) => {
+module.exports = (email, password, confirmpassword, req, res, next) => {
     
     if( email != undefined && password != undefined 
         && confirmpassword != undefined && password == confirmpassword) {
@@ -12,5 +12,3 @@ const checkRegister = (email, password, confirmpassword, req, res, next) => {
     }
 
 }
-
-module.exports = checkRegister

@@ -2,7 +2,7 @@
 
 const login = require(`../dal/login`)
 
-const checkLogin = (email, password, req, res, next) => {
+module.exports = (email, password, req, res, next) => {   
     
     if  (email != undefined && password != undefined) {
     
@@ -11,5 +11,3 @@ const checkLogin = (email, password, req, res, next) => {
     }
 
 }
-
-module.exports = checkLogin

@@ -4,10 +4,10 @@ const jwt = require('jsonwebtoken')
  
 const secret = process.env.SECRET
 
-const verify = async (req, res, next) =>  {
+module.exports = async (req, res, next) =>  {
 
-    const token = req.body.token
-
+    const hashedToken = req.body.token
+ 
     if (!token) {
 
         res.status(401).send({ auth: false, message: 'No authorized' })
@@ -35,5 +35,3 @@ const verify = async (req, res, next) =>  {
 
 
 }
-
-module.exports = verify
