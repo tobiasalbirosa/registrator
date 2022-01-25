@@ -19,19 +19,16 @@ module.exports = async (email, password, confirmpassword, req, res, next) => {
         const close = require(`./close`)
         
         //DB CONECTION:
-        console.log(email)
 
         connect
         
             .then(collection => {
-                console.log(email)
 
                 //SUCCESS!:
                 const hashedEmail = crypto.createHash(algorithm, secret)
                 .update(email)
                 .digest('hex')
 
-                console.log(hashedEmail)
                 collection
 
                     .findOne({ email: hashedEmail })
@@ -42,22 +39,29 @@ module.exports = async (email, password, confirmpassword, req, res, next) => {
 
                                 //USER DOESN'T EXISTS, LETS GO TO ADD USER INTO CORRESPONDING COLLECTION ->                             
                                 let code = Math.floor(Math.random() * (999999 - 100000)) + 100000
+                                code = code.toString()
 
                                 const hashedPass = crypto.createHash(algorithm, secret)
                                 .update(password)
                                 .digest('hex')
+
+                                let isVerified = false
+                                isVerified = isVerified.toString()
                                 
                                 const hashedBoolean = crypto.createHash(algorithm, secret)
-                                .update(true)
+                                .update(isVerified)
                                 .digest('hex')   
 
                                 const hashedCode = crypto.createHash(algorithm, secret)
-                                .update(code.toString())
+                                .update(code)
                                 .digest('hex')   
+
+
+                                const id = crypto.randomBytes(16).toString('hex')
 
                                 collection
 
-                                    .insertOne({ "email": hashedEmail, "password": hashedPass, "verified": hashedBoolean, "code" : hashedCode})
+                                    .insertOne({"id" : id,"email": hashedEmail, "password": hashedPass, "verified": hashedBoolean, "code" : hashedCode })
                                 
                                         .then(result => {
 

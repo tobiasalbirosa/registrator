@@ -18,7 +18,7 @@ controller.post( `/register` , (req, res, next) => {
 
 })
 
-controller.post( `/login` , (req, res, next) => {
+controller.post( `/login`, (req, res, next) => {
 
     controller.use( login )
 
@@ -26,7 +26,7 @@ controller.post( `/login` , (req, res, next) => {
 
 })
 
-controller.post( `/verify` , (req, res, next) => {
+controller.post( `/verify`, (req, res, next) => {
 
     controller.use( verify )
 
@@ -34,7 +34,7 @@ controller.post( `/verify` , (req, res, next) => {
 
 })
 
-controller.post( `/logout` , (req, res, next) => {
+controller.post( `/logout`, (req, res, next) => {
 
     controller.use( logout )
 

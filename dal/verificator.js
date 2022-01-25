@@ -8,12 +8,14 @@ module.exports = (email,  password,  code, req, res, next) => {
     if (email != undefined && code != undefined && password != undefined) {
 
         let connect = require(`./connect`)
-        const close = require(`./close`)
-        const crypto = require('crypto')
+
+        let close = require(`./close`)
+        let crypto = require('crypto')
+        
         const secret = process.env.HASH_SECRET
         const algorithm = process.env.HASH_ALGORITHM
-        //DB CONNECT:
 
+        //DB CONNECT:
 
         connect
 
@@ -28,12 +30,17 @@ module.exports = (email,  password,  code, req, res, next) => {
                 .update(password)
                 .digest('hex')
 
+                code = code.toString()
+
                 const hashedCode = crypto.createHash(algorithm, secret)
                 .update(code)
                 .digest('hex')
 
+                let isVerfied = true
+                isVerfied = isVerfied.toString()
+
                 const hashedVerified = crypto.createHash(algorithm, secret)
-                .update('true')
+                .update(isVerfied)
                 .digest('hex')
 
                 collection
@@ -41,32 +48,24 @@ module.exports = (email,  password,  code, req, res, next) => {
                     .findOne({ email: hashedEmail, password : hashedPass, code: hashedCode })
 
                         .then(result => {
-                                console.log(result)
                             //ON DB RESULT:
                             
                             if (result == null) {
-                            
+
                                 res.status(404).send(`This user o password doesn't exists, or code is wrong`)
                             
                             } else {
 
-                                let newCode = Math.floor(Math.random() * (999999 - 100000)) + 100000
-
-                                const newCodeHashed = crypto.createHash(algorithm, secret)
-                                hashedEmail.update(newCode)
-                                hashedEmail.digest('hex')
-
-
-                                    console.log(newCode)
                                 collection
                                 
-                                    .updateOne({ email: hashedEmail, password : hashedPass, code: hashedCode}, { $set: { verified: hashedVerified , code: newCodeHashed } })
+                                    .updateOne({ email: hashedEmail, password : hashedPass, code: hashedCode}, { $set: { verified: hashedVerified } })
                                     
                                         .then(_result => {
 
-                                            res.status(200).send({"email" :  result.email, "verfied" : true})
+                                            res.status(200).send("Your email is now verified")
 
                                         })
+
                                         .catch(err => {
 
                                             res.status(500).send(`DB Error updating user to database `+ err)

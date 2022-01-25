@@ -13,7 +13,6 @@ module.exports = (hash) => {
     
         }
     
-    
         hashValidator(hashSecret).verifyAgainst(hash, (error, verified) => {
     
             if(error) {

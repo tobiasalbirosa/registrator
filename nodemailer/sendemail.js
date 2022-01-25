@@ -46,8 +46,6 @@ module.exports = (userEmail, userCode) => {
   
     } else {
 
-       console.log('Server is ready to take our messages')
-
        transporter.sendMail(message, (err, info) => {
 
         if (err) {
@@ -57,7 +55,6 @@ module.exports = (userEmail, userCode) => {
             return process.exit(1)
         }
     
-        console.log('Message sent: %s', info)
 
       })
   

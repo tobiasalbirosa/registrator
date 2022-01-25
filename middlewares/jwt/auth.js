@@ -4,21 +4,26 @@
 const jwt = require('jsonwebtoken')
 
 const JWTSecret = process.env.JWT_SECRET
+const JWT_TYPE = process.env.JWT_TYPE
+const JWT_ALG = process.env.JWT_ALG
 
-module.exports = (req, res, next) => {
+module.exports = (req, res, id ) => {
 
-            const token = jwt.sign({ "email" : req.body.email }, JWTSecret, {
+
+    const token = jwt.sign({ id }, JWTSecret, { algorithm: JWT_ALG} , { type : JWT_TYPE} , {  expiresIn: 60 * 60 }) 
+
+        
+
+            const tokenDecodablePart = token.split('.')[1];
+            const tokenSignature = token.split('.')[2];
+
+            console.log("GENERATED DE TOKEN: ")
+            console.log(token)
             
-                expiresIn: 60 * 60
-            
-            })
+            let authData = tokenDecodablePart + "." + tokenSignature
 
-            res.status(200).send({
+            res.header("Authorization", authData)
 
-                "verified": true,
-                "auth": true,
-                "token": token
-
-            })
+            res.status(200).send({ auth: true, message : "You're logged in" })
 
 }
