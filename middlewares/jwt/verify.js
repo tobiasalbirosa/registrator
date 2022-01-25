@@ -8,8 +8,6 @@ const JWT_TYPE = process.env.JWT_TYPE
 
 const JWT_ALG = process.env.JWT_ALG
 
-const ctypto = require('crypto')
-
 module.exports = async (req, res, next) =>  {
 
     var token = req.headers.authorization
@@ -20,39 +18,40 @@ module.exports = async (req, res, next) =>  {
 
     }   else {
 
-        let headers = 
-        {
-            typ : JWT_TYPE,
-            alg : JWT_ALG
+        let headers = {
+            "alg": JWT_ALG,
+            "typ": JWT_TYPE
         }
 
-        headers = JSON.stringify(headers)
-        headers = Buffer.from(headers).toString('base64')
+        //ENCODE HEADERS TO COMPLETE THE JWT 
 
-    
+        let bs64encode = (data)  => {
+            if (typeof data === "object") {
+              data = JSON.stringify(data)
+
+            }
+            return Buffer.from(data).toString("base64url")
+        }
+          
+        let bs64header = bs64encode(headers)  
         
-        let t = headers+"."+token
+        let completedToken =  bs64header+"."+token
 
-
-        console.log("TOKEN ON VERIFY JWT ",t)
-
-        jwt.verify(token), JWT_SECRET, (err, verifiedJWT) => {
-
+        jwt.verify(completedToken, JWT_SECRET, (err, verifiedJWT) => {
+          
             if(err){
-
+                console.log("ERROR")
+                console.log(err)
                 res.status(503).send({ auth: false, message: 'No authorized' })
 
             } else {
 
-                console.log(verifiedJWT)
-                return
+                res.status(200).send({ auth: true, message: 'Your session is now validated' })
             
             }
           
         })
 
-
     }
-
 
 }

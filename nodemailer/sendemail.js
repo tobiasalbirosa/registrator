@@ -8,7 +8,7 @@ module.exports = (userEmail, userCode) => {
     
     tls: { rejectUnauthorized: false },
     host: process.env.EMAIL_HOST,
-    port: 465,
+    port: process.env.EMAIL_PORT,
     secure: true,
     
     auth: {
@@ -27,7 +27,7 @@ module.exports = (userEmail, userCode) => {
     subject: 'Wellcome! This is your validtaion code:',
     html: 
       '<h1><b>Wellcome! </b></h1>'+
-      '<h2>This is your validtaion code: <b>'+userCode+'</b></h2>'+
+      '<h2>This is your validation code: <b>'+userCode+'</b></h2>'+
       '<h3>Please, enter this code in our system to complete your registration</h3>'+
       '<h4>Thank you for your attention</h4>'+
       '<h4>Best regards</h4>'+

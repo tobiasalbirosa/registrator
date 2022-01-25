@@ -11,7 +11,13 @@
     "url": "git+https://github.com/tobiasalbirosa/registrator.git"
   },
   "keywords": [
-    "api"
+    "api",
+    "node",
+    "node js",
+    "mongodb",
+    "jwt",
+    "registration",
+    "validation"
   ],
   "author": "Tobías Albirosa",
   "license": "MIT",
@@ -24,7 +30,6 @@
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.3.0",
-    "nodemailer": "^6.7.2",
-    "password-hash-and-salt": "^0.1.4"
-  }
+    "nodemailer": "^6.7.2"
+    }
 }

@@ -3,7 +3,7 @@
 module.exports = (email,  password,  code, req, res, next) => {
     
     //LOGIN CONDITIONS, CHECK IF EMAIL AND PASSWORD ARE NOT EMPTY
-    //SECURITY LEVEL: BASIC_LOW_DANGEROUS
+    //SECURITY LEVEL: MEDIUM
     
     if (email != undefined && code != undefined && password != undefined) {
 
