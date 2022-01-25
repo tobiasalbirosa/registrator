@@ -2,11 +2,9 @@
 
 const jwt = require('jsonwebtoken')
  
-const secret = process.env.SECRET
+const JWT_SECRET = process.env.JWT_SECRET
 
 module.exports = async (req, res, next) =>  {
-
-    const hashedToken = req.body.token
  
     if (!token) {
 
@@ -14,7 +12,7 @@ module.exports = async (req, res, next) =>  {
 
     }   else {
 
-        jwt.verify(token, secret, (err, verifiedJWT) => {
+        jwt.verify(token, JWT_SECRET, (err, verifiedJWT) => {
 
             if(err){
 
