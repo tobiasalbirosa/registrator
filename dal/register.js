@@ -4,12 +4,13 @@ const sendemail = require(`../nodemailer/sendemail`)
 const crypto = require(`crypto`)
 const algorithm = process.env.HASH_ALGORITHM
 const secret = process.env.HASH_SECRET
+const emailValidator = require(`email-validator`)
 
 module.exports = async (email, password, confirmpassword, req, res, next) => {
     
     //REGISTRATION CONDITIONS, CHECK IF EMAIL AND PASSWORD ARE NOT EMPTY
-    //SECURITY LEVEL: MEDIUM
-    
+    //SECURITY LEVEL: LOW
+
     if (email != undefined && password != undefined && confirmpassword != undefined && password == confirmpassword) {
         
         const connect = require(`./connect`)
