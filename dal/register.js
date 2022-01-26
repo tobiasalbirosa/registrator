@@ -5,14 +5,24 @@ const crypto = require(`crypto`)
 const algorithm = process.env.HASH_ALGORITHM
 const secret = process.env.HASH_SECRET
 const emailValidator = require(`email-validator`)
+const passwordValidator = require('password-validator')
+var schema = new passwordValidator()
+schema
+.is().min(8)                                    // Minimum length 8
+.is().max(100)                                  // Maximum length 100
+.has().uppercase()                              // Must have uppercase letters
+.has().lowercase()                              // Must have lowercase letters
+.has().digits(1)                                // Must have at least 2 digits
+.has().not().spaces()                           // Should not have spaces
+.is().not().oneOf(['Passw0rd', 'Password123']); // Blacklist these values
 
 module.exports = async (email, password, confirmpassword, req, res, next) => {
     
     //REGISTRATION CONDITIONS, CHECK IF EMAIL AND PASSWORD ARE NOT EMPTY
     //SECURITY LEVEL: LOW
+   
+    if (emailValidator.validate(email) && schema.validate(password) && schema.validate(confirmpassword) && password != undefined && confirmpassword != undefined && password == confirmpassword) {
 
-    if (email != undefined && password != undefined && confirmpassword != undefined && password == confirmpassword) {
-        
         const connect = require(`./connect`)
         const close = require(`./close`)
         
@@ -111,6 +121,9 @@ module.exports = async (email, password, confirmpassword, req, res, next) => {
                 res.status(404).send(`NODE JS ERROR `+err)
 
             })
+
+    }else{
+        res.status(503).send(`Email or password format is not valid, the minimum length is 8, the maximum length is 100, must have uppercase letters, lowercase letters, some digits and spaces are not allowed`)
 
     }
 
